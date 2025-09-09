@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("WopiHost")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a842decd1666219d4f29dfc71693e57bb0de0d44")]
 [assembly: System.Reflection.AssemblyProductAttribute("WopiHost")]
 [assembly: System.Reflection.AssemblyTitleAttribute("WopiHost")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

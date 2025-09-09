@@ -15,28 +15,28 @@ namespace WopiHost.Controllers
 
         // GET /wopi/files/{id} -> CheckFileInfo
         [HttpGet("{id}")]
-        public IActionResult CheckFileInfo(string id)
-        {
-            if (!_store.TryGet(id, out var file)) return NotFound();
-            var token = Request.Query["access_token"].ToString();
-            var canWrite = string.Equals(token, "edit", System.StringComparison.Ordinal);
+public IActionResult CheckFileInfo(string id)
+{
+    if (!_store.TryGet(id, out var file)) return NotFound();
 
-            var info = new
-            {
-                BaseFileName = file.Name,
-                Size = file.Bytes.Length,
-                OwnerId = file.OwnerId,
-                Version = file.Version.ToString(),
-                UserId = file.OwnerId,
-                UserFriendlyName = file.OwnerId,
-                SupportsGetLock = true,
-                SupportsLocks = true,
-                SupportsUpdate = true,
-                UserCanWrite = canWrite,
-                PostMessageOrigin = Request.Headers["Origin"].ToString()
-            };
-            return Ok(info);
-        }
+    var token = Request.Query["access_token"].ToString();
+    var canWrite = string.Equals(token, "edit", StringComparison.Ordinal);
+
+    var info = new
+    {
+        BaseFileName = file.Name,
+        Size = file.Bytes.Length,
+        OwnerId = file.OwnerId,
+        Version = file.Version.ToString(),
+        UserId = file.OwnerId,
+        UserFriendlyName = file.OwnerId,
+        SupportsUpdate = true,
+        UserCanWrite = canWrite, // 👈 đây quyết định View hay Edit
+        PostMessageOrigin = Request.Headers["Origin"].ToString()
+    };
+    return Ok(info);
+}
+
 
         // GET /wopi/files/{id}/contents -> file bytes
         [HttpGet("{id}/contents")]

@@ -25,16 +25,18 @@ namespace WopiHost.Controllers
         }
 
         [HttpPost]
-        public IActionResult Open(string id, string mode) // mode: view|edit
-        {
-            var appBase = (_cfg["App:BaseUrl"] ?? "").TrimEnd('/');
-            var collaboraBase = (_cfg["Collabora:BaseUrl"] ?? "").TrimEnd('/');
-            var wopiSrc = HttpUtility.UrlEncode($"{appBase}/wopi/files/{id}");
-            var editorUrl = $"{collaboraBase}/browser/0b39b/cool.html?WOPISrc={wopiSrc}";
+public IActionResult Open(string id, string mode)
+{
+    var appBase = (_cfg["App:BaseUrl"] ?? "").TrimEnd('/');
+    var collaboraBase = (_cfg["Collabora:BaseUrl"] ?? "").TrimEnd('/');
+    var wopiSrc = HttpUtility.UrlEncode($"{appBase}/wopi/files/{id}");
+    var editorUrl = $"{collaboraBase}/browser/0b39b/cool.html?WOPISrc={wopiSrc}";
 
-            ViewBag.EditorUrl = editorUrl;
-            ViewBag.AccessToken = mode == "edit" ? "edit" : "view";
-            return View("Editor");
-        }
+    // Gán token rõ ràng
+    ViewBag.EditorUrl = editorUrl;
+    ViewBag.AccessToken = mode == "edit" ? "edit" : "view";
+    return View("Editor");
+}
+
     }
 }
