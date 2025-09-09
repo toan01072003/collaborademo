@@ -1,0 +1,56 @@
+@model System.Collections.Generic.List<WopiHost.Services.FileEntry>
+@{
+    ViewData["Title"] = "Collabora WOPI Host — Upload & Open";
+    Layout = null;
+}
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>@ViewData["Title"]</title>
+  <link rel="stylesheet" href="/css/site.css"/>
+</head>
+<body>
+  <h2>Upload file (docx, xlsx, pptx, odt, ods, odp,...)</h2>
+  <form action="/files/upload" method="post" enctype="multipart/form-data">
+    <input type="file" name="file" required />
+    <button class="btn btn-primary" type="submit">Upload</button>
+  </form>
+
+  <h3 style="margin-top:24px;">Your files</h3>
+  <table>
+    <thead>
+      <tr><th>Name</th><th>Size (bytes)</th><th>Actions</th></tr>
+    </thead>
+    <tbody>
+    @foreach (var f in Model) {
+      <tr>
+        <td>@f.Name</td>
+        <td>@f.Bytes.Length</td>
+        <td class="actions">
+          <form action="/Ui/Open" method="post" style="display:inline;">
+            <input type="hidden" name="id" value="@f.Id" />
+            <input type="hidden" name="mode" value="view" />
+            <button class="btn btn-secondary" type="submit">View</button>
+          </form>
+          <form action="/Ui/Open" method="post" style="display:inline;">
+            <input type="hidden" name="id" value="@f.Id" />
+            <input type="hidden" name="mode" value="edit" />
+            <button class="btn btn-primary" type="submit">Edit</button>
+          </form>
+          <form action="/files/delete/@f.Id" method="post" style="display:inline;">
+            <button class="btn btn-danger" type="submit">Delete</button>
+          </form>
+        </td>
+      </tr>
+    }
+    </tbody>
+  </table>
+
+  <p style="margin-top:16px;">
+    <b>App Base:</b> @ViewBag.AppBase<br/>
+    <b>Collabora:</b> @ViewBag.Collabora
+  </p>
+</body>
+</html>
