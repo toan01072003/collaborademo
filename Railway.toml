@@ -10,4 +10,4 @@ start = "dotnet WopiHost.dll"
 [[services]]
 name = "collabora"
 root = "collabora"
-start = "/bin/sh -lc 'bash /app/start-collabora.sh'"
+
