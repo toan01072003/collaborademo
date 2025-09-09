@@ -1,10 +1,13 @@
-# DÙNG IMAGE MẶC ĐỊNH, KHÔNG GÁN TAG
+# Không ghim tag để tránh not found
 FROM collabora/code
 
+# Railway terminate TLS ngoài edge → chạy HTTP nội bộ
 ENV extra_params=--o:ssl.enable=false
-# ⚠️ tighten after first deploy
+
+# TẠM nới lỏng để test; sau khi chạy OK thì set đúng ở Variables trên Railway
 ENV domain=.+
 
-COPY start-collabora.sh /app/start-collabora.sh
-RUN chmod +x /app/start-collabora.sh
+# Port service
 EXPOSE 9980
+
+# Không cần COPY script, không cần chmod, dùng entrypoint mặc định của image
